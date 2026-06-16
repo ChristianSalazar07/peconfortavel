@@ -10,10 +10,18 @@
             <a href="{% url 'index' %}" class="nav-link active">Início</a>
             <a href="{% url 'index' %}" class="nav-link">Produtos</a>
             <a href="{% url 'index' %}" class="nav-link">Clientes</a>
-            <a href="{% url 'index' %}" class="nav-link">Fabricantes</a>
+            <a href="{% url 'fabricante:listar' %}" class="nav-link">Fabricantes</a>
             <a href="{% url 'index' %}" class="nav-link">Venda</a>
             <a href="{% url 'index' %}" class="nav-link">Login</a>
             <a href="/" class="nav-link">Contato</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_title %}
+    <div class="text-center">
+        <div class="jumbotron mt-5 bg-dark text-light">
+            <h1 class="display-4">Pé Confortável Ltda.</h1>
         </div>
     </div>
 {% endblock %}
