@@ -12,8 +12,8 @@
     <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
         <div class="navbar-nav">
             <a href="{% url 'index' %}" class="nav-link">Início</a>
-            <a href="{% url 'fabricante:listar' %}" class="nav-link">Listar</a>
-            <a href="{% url 'fabricante:cadastrar' %}" class="nav-link active">Cadastrar</a>
+            <a href="{% url 'produto:listar' %}" class="nav-link">Listar</a>
+            <a href="{% url 'produto:cadastrar' %}" class="nav-link active">Cadastrar</a>
         </div>
     </div>
 {% endblock %}
@@ -22,7 +22,7 @@
     <div class="container text-center border-bottom border-primary">
         <div class="row mt-5">
             <div class="col">
-                <h1>Cadastro de Fabricantes</h1>
+                <h1>Cadastro de Produtos</h1>
             </div>
         </div>
     </div>
@@ -30,14 +30,44 @@
 
 {% block main %}
 <div class="container">
-    <form name="idFrmCadastrarFabricante" action="{% url 'fabricante:cadastrar' %}" method="post">
+    <form name="idFrmCadastrarProduto" action="{% url 'produto:cadastrar' %}" method="post">
     {% csrf_token %}
         <div class="form-group">
-            <label for="idNomeFabricante" class="col-form-label">Nome do Fabricante</label>
-            <input class="form-control bg-dark text-light" type="text" id="idNomeFabricante" name="nome"
-                placeholder="Informe o nome do fabricante" maxlength="70" required>
+            <label for="idNomeProduto" class="col-form-label">Nome do Produto</label>
+            <input class="form-control bg-dark text-light" type="text" id="idNomeProduto" name="nome"
+                placeholder="Informe o nome do produto" maxlength="70" required>
         </div>
-
+        <div class="form-group">
+            <label for='idPrecoCompra'>Preço de Compra do Produto</label>
+            <input class="form-control bg-dark text-light" type='number' id='idPrecoCompra' name='preco_compra' placeholder="Informe o valor de compra do produto" required>
+        </div>
+        <div class="form-group">
+            <label for='idPrecoVenda'>Preço de Venda do Produto</label>
+            <input class="form-control bg-dark text-light" type='number' id='idPrecoVenda' name='preco_venda' placeholder="Informe o valor de venda do produto" required>
+        </div>
+        <div class="form-group">
+            <label for="idCor">Cor</label>
+            <select class="form-control bg-dark text-light" id="idCor" name="cor">
+                <option disabled selected value="0">Selecione...</option>
+                {% for c in cor %}
+                <option value={{ c.0 }}>{{ c.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for='idImagem'>Imagem</label>
+            <input class="form-control bg-dark text-light" type='text' id='idImagem' name='imagem'
+            placeholder="Informe o nome da imagem" maxlength="25" required>
+        </div>
+        <div class="form-group">
+            <label for="idFabricante">Fabricante</label>
+            <select class="form-control bg-dark text-light" id="idFabricante" name="fabricante_codigo">
+                <option disabled selected value="0">Selecione...</option>
+                    {% for f in fabricantes %}
+                    <option value={{ f.codigo }}>{{ f.nome }}</option>
+                    {% endfor %}
+            </select>
+        </div>
         <div class="form-group my-4 text-center">
             <input type="reset" value="Limpar" class="btn btn-primary btn-md">
             <input type="submit" value="Cadastrar" class="btn btn-primary btn-md">

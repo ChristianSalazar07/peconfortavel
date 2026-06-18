@@ -12,8 +12,8 @@
     <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
         <div class="navbar-nav">
             <a href="{% url 'index' %}" class="nav-link">Início</a>
-            <a href="{% url 'fabricante:listar' %}" class="nav-link active">Listar</a>
-            <a href="{% url 'fabricante:cadastrar' %}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'produto:listar' %}" class="nav-link active">Listar</a>
+            <a href="{% url 'produto:cadastrar' %}" class="nav-link">Cadastrar</a>
         </div>
     </div>
 {% endblock %}
@@ -52,9 +52,9 @@
                     <th>Nome</th>
                     <th>Preço Compra</th>
                     <th>Preço Venda</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Cor</th>
+                    <th>Imagem</th>
+                    <th>Fabricante</th>
                 </tr>
             </thead>
 
@@ -63,6 +63,11 @@
             <tr>
                 <td class="text-center">{{ p.codigo }}</td>
                 <td class="text-center">{{ p.nome }}</td>
+                <td class="text-center"> R${{ p.preco_compra|floatformat:"2g" }}</td>
+                <td class="text-center"> R${{ p.preco_venda|floatformat:"2g" }}</td>
+                <td class="text-center">{{ p.get_cor_display }}</td>
+                <td class="text-center">{{ p.imagem }}</th>
+                <td class="text-center">{{ p.fabricante_codigo.nome }}</td>
             </tr>
             {% endfor %}
         </table>
