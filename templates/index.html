@@ -9,11 +9,11 @@
         <div class="navbar-nav">
             <a href="{% url 'index' %}" class="nav-link active">Início</a>
             <a href="{% url 'produto:listar' %}" class="nav-link">Produtos</a>
-            <a href="{% url 'index' %}" class="nav-link">Clientes</a>
+            <a href="{% url 'cliente:listar' %}" class="nav-link">Clientes</a>
             <a href="{% url 'fabricante:listar' %}" class="nav-link">Fabricantes</a>
-            <a href="{% url 'index' %}" class="nav-link">Venda</a>
-            <a href="{% url 'index' %}" class="nav-link">Login</a>
-            <a href="/" class="nav-link">Contato</a>
+            <a href="{% url 'construcao' %}" class="nav-link">Venda</a>
+            <a href="{% url 'construcao' %}" class="nav-link">Login</a>
+            <a href="{% url 'construcao' %}" class="nav-link">Contato</a>
         </div>
     </div>
 {% endblock %}

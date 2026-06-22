@@ -1,0 +1,26 @@
+{% extends "base_template.html"%}
+{% load static %}
+
+{% block title%}
+    <title> Pé Confortável Ltda. </title>
+{% endblock %}
+
+{% block menu %}
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+        <div class="navbar-nav">
+            <a href="{% url 'index' %}" class="nav-link active mr-5">Início</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_title %}
+    <div class="text-center">
+        <div class="jumbotron mt-5 bg-dark text-light">
+            <h1 class="display-4">Pé Confortável Ltda.</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <img width="100%" src="{% static "img/pagina_construcao.png" %}">
+{% endblock %}

@@ -1,19 +1,19 @@
 {% extends "base_template.html"%}
 
 {% block title%}
-    <title> Pé Confortável Ltda. Lista de Produtos </title>
+    <title> Pé Confortável Ltda. Lista de Clientes </title>
 {% endblock %}
 
 {% block page %}
-- Produtos
+- Clientes
 {% endblock %}
 
 {% block menu %}
     <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
         <div class="navbar-nav">
             <a href="{% url 'index' %}" class="nav-link">Início</a>
-            <a href="{% url 'produto:listar' %}" class="nav-link active">Listar</a>
-            <a href="{% url 'produto:cadastrar' %}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'cliente:listar' %}" class="nav-link active">Listar</a>
+            <a href="{% url 'cliente:cadastrar' %}" class="nav-link">Cadastrar</a>
         </div>
     </div>
 {% endblock %}
@@ -22,14 +22,14 @@
     <div class="container text-center border-bottom border-primary">
         <div class="row mt-5">
             <div class="col">
-                <h1>Lista de Produtos</h1>
+                <h1>Lista de Clientes</h1>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block main %}
-    {% if produtos %}
+    {% if clientes %}
     <div class="table-responsive">
 
         <!-- classes para tabela (Bootstrap) , tabela sem borda, conteudo alinhado ao centro, ... , width: auto -->
@@ -48,26 +48,32 @@
                 <!-- linhas -->
                 <tr>
                     <!-- colunas cabecalho -->
-                    <th>Código</th>
+                    <th>CPF</th>
                     <th>Nome</th>
-                    <th>Preço Compra</th>
-                    <th>Preço Venda</th>
-                    <th>Cor</th>
-                    <th>Imagem</th>
-                    <th>Fabricante</th>
+                    <th>Endereco</th>
+                    <th>Telefone</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th>Gênero</th>
+                    <th>Contato</th>
+                    <th>E-mail</th>
+                    <th>Senha</th>
                 </tr>
             </thead>
 
             <!-- linhas -->
-            {% for p in produtos %}
+            {% for c in clientes %}
             <tr>
-                <td class="text-center">{{ p.codigo }}</td>
-                <td class="text-center">{{ p.nome }}</td>
-                <td class="text-center"> R${{ p.preco_compra|floatformat:"2g" }}</td>
-                <td class="text-center"> R${{ p.preco_venda|floatformat:"2g" }}</td>
-                <td class="text-center">{{ p.get_cor_display }}</td>
-                <td class="text-center">{{ p.imagem }}</th>
-                <td class="text-center">{{ p.fabricante_codigo.nome }}</td>
+                <td class="text-center">{{ c.cpf }}</td>
+                <td class="text-center">{{ c.nome }}</td>
+                <td class="text-center">{{ c.endereco }}</td>
+                <td class="text-center">{{ c.telefone }}</td>
+                <td class="text-center">{{ c.get_uf_display }}</td>
+                <td class="text-center">{{ c.cidade }}</th>
+                <td class="text-center">{{ c.get_genero_display }}</td>
+                <td class="text-center">{{ c.get_contato_display }}</td>
+                <td class="text-center">{{ c.email }}</th>
+                <td class="text-center">{{ c.senha }}</td>
             </tr>
             {% endfor %}
         </table>
@@ -75,7 +81,7 @@
     </div>
     {% else %}
     <div class="container text-center">
-        <h3>Não há nenhum produto cadastrado!</h3>
+        <h3>Não há nenhum cliente cadastrado!</h3>
     </div>
     {% endif %}
 {% endblock %}
