@@ -8,7 +8,7 @@ from .forms import produtoForm
 def listar(request):
     lista_produtos = produto.objects.all()
     context = {
-        "produtos": lista_produtos
+        "produtos": lista_produtos,
     }
     return render(request, 'produto/listar_produtos.html', context)
 

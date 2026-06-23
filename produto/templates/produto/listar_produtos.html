@@ -1,4 +1,5 @@
 {% extends "base_template.html"%}
+{% load static %}
 
 {% block title%}
     <title> Pé Confortável Ltda. Lista de Produtos </title>
@@ -66,7 +67,7 @@
                 <td class="text-center"> R${{ p.preco_compra|floatformat:"2g" }}</td>
                 <td class="text-center"> R${{ p.preco_venda|floatformat:"2g" }}</td>
                 <td class="text-center">{{ p.get_cor_display }}</td>
-                <td class="text-center">{{ p.imagem }}</th>
+                <td class="text-center">{{ p.imagem }}</td>
                 <td class="text-center">{{ p.fabricante_codigo.nome }}</td>
             </tr>
             {% endfor %}
