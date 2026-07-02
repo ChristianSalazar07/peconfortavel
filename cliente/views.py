@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import cliente
-from .forms import clienteForm
+from .forms import clienteForm, loginForm
+from django.contrib.auth.hashers import make_password, check_password
+from django.http import HttpResponse
 
 # Create your views here.
 def listar(request):
@@ -34,5 +36,32 @@ def cadastrar(request):
             email = dados_cliente['email'],
             senha = dados_cliente['senha'],
         )
-        c.save()
+        if cliente.objects.filter(email=dados_cliente['email']).exists():
+            return HttpResponse("Usuário já existe")
+        else:
+            c.save()
     return render(request, 'cliente/cadastrar_clientes.html', context)
+
+def login(request):
+    if request.method == 'POST':
+        form = loginForm(request.POST)
+        if form.is_valid():
+            dados_login = form.cleaned_data
+            try:
+                usuario = cliente.objects.get(email=dados_login['email'])
+                p = make_password(dados_login['senha'], salt=usuario.custom_salt)
+                if cliente.objects.filter(email=dados_login['email']).exists() and p == usuario.senha:
+                    return HttpResponse(f"Sucesso")
+                else:
+                    mensagem = "Senha incorreta"
+                    context = {
+                        "mensagem": mensagem
+                    }
+                    return render(request, 'cliente/login_cliente.html', context)
+            except cliente.DoesNotExist:
+                mensagem = "Usuário não existente"
+                context = {
+                    "mensagem": mensagem
+                }
+                return render(request, 'cliente/login_cliente.html', context)
+    return render(request, 'cliente/login_cliente.html')

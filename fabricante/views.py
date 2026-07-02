@@ -19,3 +19,9 @@ def cadastrar(request):
         )
         fab.save()
     return render(request, "fabricante/cadastrar_fabricantes.html")
+
+def excluir(request, codigoFabricante):
+    pass
+
+def atualizar(request, codigoFabricante):
+    pass

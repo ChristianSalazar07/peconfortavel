@@ -14,6 +14,7 @@
             <a href="{% url 'index' %}" class="nav-link">Início</a>
             <a href="{% url 'cliente:listar' %}" class="nav-link active">Listar</a>
             <a href="{% url 'cliente:cadastrar' %}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'cliente:login' %}" class="nav-link">Login</a>
         </div>
     </div>
 {% endblock %}
@@ -73,7 +74,7 @@
                 <td class="text-center">{{ c.get_genero_display }}</td>
                 <td class="text-center">{{ c.get_contato_display }}</td>
                 <td class="text-center">{{ c.email }}</th>
-                <td class="text-center">{{ c.senha }}</td>
+                <td class="text-center">********</td>
             </tr>
             {% endfor %}
         </table>

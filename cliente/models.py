@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.models import AbstractUser
+from django.utils.crypto import get_random_string
 
 # Create your models here.
 class cliente(models.Model):
@@ -33,11 +35,13 @@ class cliente(models.Model):
     contato = models.CharField(max_length=1, null=False, help_text="Informe a forma de contato:", choices=contatos)
     email = models.CharField(max_length=100, null=True, help_text="Informe o E-mail:")
     senha = models.CharField(max_length=256, null=False, help_text="Informe a senha:")
+    custom_salt = models.CharField(max_length=32, null=False, help_text="Salt gerado")
 
     def __str__(self):
         return f"CPF: {self.cpf} - Nome: {self.nome} - Telefone: {self.telefone}"
     
     def save(self):
         if not self.senha.startswith(('pbkdf2_', 'argon2', 'bcrypt')):
-            self.senha = make_password(self.senha)
+            self.custom_salt = get_random_string(length=32)
+            self.senha = make_password(self.senha, salt=self.custom_salt)
         super().save()

@@ -12,3 +12,7 @@ class clienteForm(forms.Form):
     contato = forms.ChoiceField(required=True, help_text="Informe a forma de contato:", choices=cliente.contatos)
     email = forms.CharField(max_length=100, required=True, help_text="Informe o E-mail:")
     senha = forms.CharField(max_length=256, required=True, help_text="Informe a senha:")
+
+class loginForm(forms.Form):
+    email = forms.CharField(max_length=100, required=True, help_text="Informe o E-mail:")
+    senha = forms.CharField(max_length=256, required=True, help_text="Informe a senha:")
