@@ -20,6 +20,7 @@ class produto(models.Model):
     cor = models.CharField(max_length=20, null=False, blank=False, help_text="Informe a cor do produto:", choices=cores, default="preto")
     imagem = models.CharField(max_length=25, null=False, blank=False, help_text="Informe o nome do produto:")
     fabricante_codigo = models.ForeignKey(fabricante, on_delete=models.SET_NULL, null=True, help_text="Informe o fabricante")
+    desativado = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Código: {self.codigo} - Nome: {self.nome} - Cor: {self.cor.capitalize()} - Fabricante: {self.fabricante_codigo.nome}"
+        return f"Código: {self.codigo} - Nome: {self.nome} - Cor: {self.cor.capitalize()} - Fabricante: {self.fabricante_codigo.nome} {' - Desativado' if self.desativado else ''}"

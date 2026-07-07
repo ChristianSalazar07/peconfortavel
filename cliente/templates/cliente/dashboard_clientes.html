@@ -1,0 +1,92 @@
+{% extends "base_template.html"%}
+{% load static %}
+
+{% block title%}
+    <title> Pé Confortável Ltda. Dashboard de Clientes </title>
+{% endblock %}
+
+{% block page %}
+- Clientes
+{% endblock %}
+
+{% block menu %}
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+        <div class="navbar-nav">
+            <a href="{% url 'index' %}" class="nav-link">Início</a>
+            <a href="{% url 'cliente:cadastrar' %}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'cliente:login' %}" class="nav-link">Login</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_title %}
+    <div class="container text-center border-bottom border-primary">
+        <div class="row mt-5">
+            <div class="col">
+                <h1>Página do Cliente</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container mb-4">
+        <div class="row">
+            <img class="ml-3" width="180px" src="{% static 'img/sapatologo.png' %}">
+            <div class="ml-4">
+                <h2 class="text-black justify-content-end">
+                    {{ usuario.nome }}
+                </h2>
+                <h4 class="text-muted justify-content-end">
+                    {{ usuario.email }}
+                </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h5> Informações do Cliente: </h5>
+            </div>
+            <div class="form-group col-6">
+                <label for='idCpf'>CPF do Cliente</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.cpf }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idNome'>Nome do Cliente</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idNome' value='{{ usuario.nome }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idCpf'>Endereço do Cliente</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.endereco }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idCpf'>Telefone</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.telefone }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-4">
+                <label for='idCpf'>Estado</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.get_uf_display }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-4">
+                <label for='idCpf'>Cidade</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.cidade }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-4">
+                <label for='idCpf'>Gênero</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.get_genero_display }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idCpf'>Forma de Contato</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.get_contato_display }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idCpf'>Email do Cliente</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.email }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-12">
+                <label for='idCpf'>Senha</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='*******' name='descricaoAnterior' readonly required>
+            </div>
+        </div>
+        <a href="{% url 'construcao' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Editar</a>
+    </div>
+{% endblock %}

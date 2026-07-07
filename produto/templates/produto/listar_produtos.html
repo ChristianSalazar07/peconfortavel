@@ -56,11 +56,13 @@
                     <th>Cor</th>
                     <th>Imagem</th>
                     <th>Fabricante</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
             <!-- linhas -->
             {% for p in produtos %}
+            {% if p.desativado == False %}
             <tr>
                 <td class="text-center">{{ p.codigo }}</td>
                 <td class="text-center">{{ p.nome }}</td>
@@ -69,7 +71,17 @@
                 <td class="text-center">{{ p.get_cor_display }}</td>
                 <td class="text-center">{{ p.imagem }}</td>
                 <td class="text-center">{{ p.fabricante_codigo.nome }}</td>
+                <td>
+                    <a href="{% url 'produto:atualizar' p.codigo %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                    <button type="button" class="btn" role="button" data-target="#modalExcluirProduto"
+                        data-toggle="modal" data-nome="{{p.nome}}" 
+                        data-url="{% url 'produto:excluir' p.codigo %}">
+                        
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </td>
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
 
@@ -79,4 +91,48 @@
         <h3>Não há nenhum produto cadastrado!</h3>
     </div>
     {% endif %}
+    <!-- Modais -->
+    <div class="modal fade" id="modalExcluirProduto" role="dialog" aria-labelledby="Confirmação" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p id="mensagemExclusao"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnExcluir">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+{% block javascript_complementar %}
+    <!-- Prepara o modal com os dados da imagem do produto a ser excluido -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#modalExcluirProduto').on('show.bs.modal', function(event) {
+                var nome = $(event.relatedTarget).data('nome');
+                var urlExcluir = $(event.relatedTarget).data('url');
+                $("#mensagemExclusao").text("Deseja deletar produto [  " + nome + "  ]?");
+
+                $.fn.excluirProduto = function() {
+                    var url = $(event.relatedTarget).data('url');
+                    location.replace(url);
+                }
+            });
+        
+            $("#btnExcluir").on('click', function() {
+                $.fn.excluirProduto();
+                return false;
+            });            
+        });
+    </script>
+{% endblock javascript_complementar %}

@@ -33,26 +33,26 @@
 <div class="container">
     <form name="idFrmCadastrarCliente" action="{% url 'cliente:cadastrar' %}" method="post">
     {% csrf_token %}
-        <div class="form-group">
-            <label for='idPrecoCompra'>CPF do Cliente</label>
-            <input class="form-control bg-dark text-light" type='number' id='idPrecoCompra' name='cpf' placeholder="Informe o CPF do cliente" required>
-        </div>
-        <div class="form-group">
-            <label for="idNomeCliente" class="col-form-label">Nome do Cliente</label>
-            <input class="form-control bg-dark text-light" type="text" id="idNomeCliente" name="nome"
-                placeholder="Informe o nome do cliente" maxlength="70" required>
-        </div>
-        <div class="form-group">
-            <label for="idEnderecoCliente" class="col-form-label">Endereço do Cliente</label>
-            <input class="form-control bg-dark text-light" type="text" id="idEnderecoCliente" name="endereco"
-                placeholder="Informe o endereço do cliente" maxlength="100" required>
-        </div>
-        <div class="form-group">
-            <label for='idTelefone'>Telefone</label>
-            <input class="form-control bg-dark text-light" type='text' id='idTelefone' name='telefone' maxlength="11" required>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-6">
+        <div class="row">
+            <div class="form-group col-6">
+                <label for='idPrecoCompra'>CPF do Cliente</label>
+                <input class="form-control bg-dark text-light" type='number' id='idPrecoCompra' name='cpf' placeholder="Informe o CPF do cliente" required>
+            </div>
+            <div class="form-group col-6">
+                <label for="idNomeCliente">Nome do Cliente</label>
+                <input class="form-control bg-dark text-light" type="text" id="idNomeCliente" name="nome"
+                    placeholder="Informe o nome do cliente" maxlength="70" required>
+            </div>
+            <div class="form-group col-6">
+                <label for="idEnderecoCliente" >Endereço do Cliente</label>
+                <input class="form-control bg-dark text-light" type="text" id="idEnderecoCliente" name="endereco"
+                    placeholder="Informe o endereço do cliente" maxlength="100" required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idTelefone'>Telefone</label>
+                <input class="form-control bg-dark text-light" type='text' id='idTelefone' name='telefone' maxlength="11" required>
+            </div>
+            <div class="col-4">
                 <label for="idEstado">Estado</label>
                 <select class="form-control bg-dark text-light" id="idEstado" name="uf">
                     <option disabled selected value="0">Selecione...</option>
@@ -61,43 +61,43 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-sm-6">
+            <div class="col-4">
                 <label for='idCidade'>Cidade</label>
                 <input class="form-control bg-dark text-light" type='text' id='idCidade' name='cidade'
                 placeholder="Informe o nome da cidade" maxlength="25" required>
+            </div>  
+            <div class="form-group col-4">
+                <label for="idGenero">Gênero</label>
+                <select class="form-control bg-dark text-light" id="idGenero" name="genero">
+                    <option disabled selected value="0">Selecione...</option>
+                    {% for g in generos %}
+                    <option value={{ g.0 }}>{{ g.1 }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="idGenero">Gênero</label>
-            <select class="form-control bg-dark text-light" id="idGenero" name="genero">
-                <option disabled selected value="0">Selecione...</option>
-                {% for g in generos %}
-                <option value={{ g.0 }}>{{ g.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="idContato">Forma de Contato</label>
-            <select class="form-control bg-dark text-light" id="idContato" name="contato">
-                <option disabled selected value="0">Selecione...</option>
-                {% for c in contatos %}
-                <option value={{ c.0 }}>{{ c.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="idEmailCliente" class="col-form-label">Endereço do Cliente</label>
-            <input class="form-control bg-dark text-light" type="email" id="idEmailCliente" name="email"
-                placeholder="Informe o E-mail do cliente" maxlength="100" required>
-        </div>
-        <div class="form-group">
-            <label for="idSenhaCliente" class="col-form-label">Senha do Cliente</label>
-            <input class="form-control bg-dark text-light" type="password" id="idSenhaCliente" name="senha"
-                placeholder="Informe a Senha do cliente" maxlength="100" required>
-        </div>
-        <div class="form-group my-4 text-center">
-            <input type="reset" value="Limpar" class="btn btn-primary btn-md">
-            <input type="submit" value="Cadastrar" class="btn btn-primary btn-md">
+            <div class="form-group col-6">
+                <label for="idContato">Forma de Contato</label>
+                <select class="form-control bg-dark text-light" id="idContato" name="contato">
+                    <option disabled selected value="0">Selecione...</option>
+                    {% for c in contatos %}
+                    <option value={{ c.0 }}>{{ c.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-6">
+                <label for="idEmailCliente" class="col-form-label">Email do Cliente</label>
+                <input class="form-control bg-dark text-light" type="email" id="idEmailCliente" name="email"
+                    placeholder="Informe o E-mail do cliente" maxlength="100" required>
+            </div>
+            <div class="form-group col-12">
+                <label for="idSenhaCliente" class="col-form-label">Senha do Cliente</label>
+                <input class="form-control bg-dark text-light" type="password" id="idSenhaCliente" name="senha"
+                    placeholder="Informe a Senha do cliente" maxlength="100" required>
+            </div>
+            <div class="form-group my-4 text-center col-12">
+                <input type="reset" value="Limpar" class="btn btn-primary btn-md">
+                <input type="submit" value="Cadastrar" class="btn btn-primary btn-md">
+            </div>
         </div>
     </form>
 </div>

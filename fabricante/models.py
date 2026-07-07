@@ -7,4 +7,4 @@ class fabricante(models.Model):
     desativado = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Código: {self.codigo} - Nome: {self.nome}"
+        return f"Código: {self.codigo} - Nome: {self.nome} {' - Desativado' if self.desativado else ''}"

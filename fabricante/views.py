@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import fabricante
-from .forms import fabricanteForm
+from .forms import fabricanteForm, atualizarFabricanteForm
 
 # Create your views here.
 def listar(request):
@@ -21,7 +21,22 @@ def cadastrar(request):
     return render(request, "fabricante/cadastrar_fabricantes.html")
 
 def excluir(request, codigoFabricante):
-    pass
+    fab = fabricante.objects.get(pk=codigoFabricante)
+    fab.desativado = True
+    fab.save()
+    return redirect("fabricante:listar")
 
 def atualizar(request, codigoFabricante):
-    pass
+    form = atualizarFabricanteForm(request.POST)
+    if form.is_valid():
+        dados_fabricante = form.cleaned_data
+        fab = fabricante.objects.get(pk=dados_fabricante['codigo'])
+        fab.nome = dados_fabricante['nome']
+        fab.desativado = False
+        fab.save()
+        return redirect("fabricante:listar")
+    context = {
+        "codigo": codigoFabricante,
+        "fabricanteAlterado": fabricante.objects.get(pk=codigoFabricante)
+    }
+    return render(request, "fabricante/atualizar_fabricantes.html", context)

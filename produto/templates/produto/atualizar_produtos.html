@@ -1,7 +1,7 @@
 {% extends "base_template.html"%}
 
 {% block title%}
-    <title> Pé Confortável Ltda. Cadastro de Produtos </title>
+    <title> Pé Confortável Ltda. Atualizar Produtos </title>
 {% endblock %}
 
 {% block page %}
@@ -12,8 +12,8 @@
     <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
         <div class="navbar-nav">
             <a href="{% url 'index' %}" class="nav-link">Início</a>
-            <a href="{% url 'produto:listar' %}" class="nav-link">Listar</a>
-            <a href="{% url 'produto:cadastrar' %}" class="nav-link active">Cadastrar</a>
+            <a href="{% url 'produto:listar' %}" class="nav-link active">Listar</a>
+            <a href="{% url 'produto:cadastrar' %}" class="nav-link">Cadastrar</a>
         </div>
     </div>
 {% endblock %}
@@ -22,7 +22,7 @@
     <div class="container text-center border-bottom border-primary">
         <div class="row mt-5">
             <div class="col">
-                <h1>Cadastro de Produtos</h1>
+                <h1>Atualizar Produtos</h1>
             </div>
         </div>
     </div>
@@ -30,11 +30,42 @@
 
 {% block main %}
 <div class="container">
-    <form name="idFrmCadastrarProduto" action="{% url 'produto:cadastrar' %}" method="post">
+    <form name="idFrmCadastrarProduto" action="{% url 'produto:atualizar' codigo %}" method="post">
     {% csrf_token %}
+        <div class="row border border_primary p-2">
+            <div class="form-group col-10">
+                <label for='idDescricao'>Nome Atual do Produto</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ produtoAlterado.nome }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-2">
+                <label for='idCodigo'>Código</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCodigo' value='{{ codigo }}' name='codigo' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idPrecoCompra'>Preço Anterior de Compra do Produto</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idPrecoCompra' value='R${{ produtoAlterado.preco_compra|floatformat:"2g" }}' name='compraAnterior' readonly required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idPrecoVenda'>Preço Anterior de Venda do Produto</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idPrecoVenda' value='R${{ produtoAlterado.preco_venda|floatformat:"2g" }}' name='vendaAnterior' readonly required>
+            </div>
+            <div class="form-group col-4">
+                <label for='idDescricao'>Cor Atual do Produto</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ produtoAlterado.get_cor_display }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-4">
+                <label for='idDescricao'>Imagem Atual do Produto</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ produtoAlterado.imagem }}' name='descricaoAnterior' readonly required>
+            </div>
+            <div class="form-group col-4">
+                <label for='idDescricao'>Fabricante do Produto</label>
+                <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ produtoAlterado.fabricante_codigo.nome }}' name='descricaoAnterior' readonly required>
+            </div>
+        </div>
+            
         <div class="row">
             <div class="form-group col-12">
-                <label for="idNomeProduto" class="col-form-label">Nome do Produto</label>
+                <label for="idNomeProduto" class="col-form-label">Novo Nome do Produto</label>
                 <input class="form-control bg-dark text-light" type="text" id="idNomeProduto" name="nome"
                     placeholder="Informe o nome do produto" maxlength="70" required>
             </div>
@@ -46,7 +77,7 @@
                 <label for='idPrecoVenda'>Preço de Venda do Produto</label>
                 <input class="form-control bg-dark text-light" type='number' id='idPrecoVenda' name='preco_venda' placeholder="Informe o valor de venda do produto" required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-4">
                 <label for="idCor">Cor</label>
                 <select class="form-control bg-dark text-light" id="idCor" name="cor">
                     <option disabled selected value="0">Selecione...</option>
@@ -55,12 +86,12 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-4">
                 <label for='idImagem'>Imagem</label>
                 <input class="form-control bg-dark text-light" type='text' id='idImagem' name='imagem'
                 placeholder="Informe o nome da imagem" maxlength="25" required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-4">
                 <label for="idFabricante">Fabricante</label>
                 <select class="form-control bg-dark text-light" id="idFabricante" name="fabricante_codigo">
                     <option disabled selected value="0">Selecione...</option>

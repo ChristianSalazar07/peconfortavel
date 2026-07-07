@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import cliente
 from .forms import clienteForm, loginForm
 from django.contrib.auth.hashers import make_password, check_password
@@ -51,17 +51,28 @@ def login(request):
                 usuario = cliente.objects.get(email=dados_login['email'])
                 p = make_password(dados_login['senha'], salt=usuario.custom_salt)
                 if cliente.objects.filter(email=dados_login['email']).exists() and p == usuario.senha:
+                    site = redirect("cliente:dashboard")
+                    site.set_cookie('usuario', usuario.email, max_age= None)
+                    return site
                     return HttpResponse(f"Sucesso")
                 else:
                     mensagem = "Senha incorreta"
                     context = {
                         "mensagem": mensagem
                     }
-                    return render(request, 'cliente/login_cliente.html', context)
+                    return render(request, 'cliente/login_clientes.html', context)
             except cliente.DoesNotExist:
                 mensagem = "Usuário não existente"
                 context = {
                     "mensagem": mensagem
                 }
-                return render(request, 'cliente/login_cliente.html', context)
-    return render(request, 'cliente/login_cliente.html')
+                return render(request, 'cliente/login_clientes.html', context)
+    return render(request, 'cliente/login_clientes.html')
+
+def dashboard(request):
+    emailUsuario = request.COOKIES['usuario']
+    usuario = cliente.objects.get(email=emailUsuario)
+    context = {
+        'usuario':usuario
+    }
+    return render(request, 'cliente/dashboard_clientes.html', context)

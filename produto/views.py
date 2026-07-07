@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import produto
 from fabricante.models import fabricante
-from .forms import produtoForm
+from .forms import produtoForm, atualizarProdutoForm
 
 # Create your views here.
 def listar(request):
@@ -34,3 +34,33 @@ def cadastrar(request):
     else:
         redirect('produto:listar')
     return render(request, 'produto/cadastrar_produtos.html', context)
+
+def excluir(request, codigoProduto):
+    p = produto.objects.get(pk=codigoProduto)
+    p.desativado = True
+    p.save()
+    return redirect("produto:listar")
+
+def atualizar(request, codigoProduto):
+    form = atualizarProdutoForm(request.POST)
+    if form.is_valid():
+        dados_produto = form.cleaned_data
+        p = produto.objects.get(pk=dados_produto['codigo'])
+        p.nome = dados_produto['nome']
+        p.preco_compra = dados_produto['preco_compra']
+        p.preco_venda = dados_produto['preco_venda']
+        p.cor = dados_produto['cor']
+        p.imagem = dados_produto['imagem']
+        p.fabricante_codigo = dados_produto['fabricante_codigo']
+        p.desativado = False
+        p.save()
+        return redirect("produto:listar")
+    lista_fabricantes = fabricante.objects.all()
+    lista_cores = produto.cores
+    context = {
+        "fabricantes": lista_fabricantes,
+        "cor": lista_cores,
+        "codigo": codigoProduto,
+        "produtoAlterado": produto.objects.get(pk=codigoProduto)
+    }
+    return render(request, "produto/atualizar_produtos.html", context)

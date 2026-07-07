@@ -1,0 +1,57 @@
+{% extends "base_template.html"%}
+
+{% block title%}
+    <title> Pé Confortável Ltda. Atualizar Fabricantes </title>
+{% endblock %}
+
+{% block page %}
+- Fabricantes
+{% endblock %}
+
+{% block menu %}
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+        <div class="navbar-nav">
+            <a href="{% url 'index' %}" class="nav-link">Início</a>
+            <a href="{% url 'fabricante:listar' %}" class="nav-link active">Listar</a>
+            <a href="{% url 'fabricante:cadastrar' %}" class="nav-link">Cadastrar</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_title %}
+    <div class="container text-center border-bottom border-primary">
+        <div class="row mt-5">
+            <div class="col">
+                <h1>Atualizar Fabricantes</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <form name="idFrmCadastrarFabricante" action="{% url 'fabricante:atualizar' codigo %}" method="post">
+    {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-10">
+                    <label for='idDescricao'>Nome Atual do Fabricante</label>
+                    <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ fabricanteAlterado.nome }}' name='descricaoAnterior' readonly required>
+                </div>
+                <div class="form-group col-2">
+                    <label for='idDescricao'>Código</label>
+                    <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ codigo }}' name='codigo' readonly required>
+                </div>
+            <div class="form-group col-12">
+                <label for="idNomeFabricante" class="col-form-label">Novo Nome do Fabricante</label>
+                <input class="form-control bg-dark text-light" type="text" id="idNomeFabricante" name="nome"
+                    placeholder="Informe o nome do fabricante" maxlength="70" required>
+            </div>
+
+            <div class="form-group my-4 text-center">
+                <input type="reset" value="Limpar" class="btn btn-primary btn-md">
+                <input type="submit" value="Atualizar" class="btn btn-primary btn-md">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
