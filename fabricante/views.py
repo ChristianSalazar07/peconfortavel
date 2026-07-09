@@ -4,7 +4,7 @@ from .forms import fabricanteForm, atualizarFabricanteForm
 
 # Create your views here.
 def listar(request):
-    lista_fabricantes = fabricante.objects.all()
+    lista_fabricantes = fabricante.objects.filter(desativado=False)
     context = {
         "fabricantes": lista_fabricantes
     }

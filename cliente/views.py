@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import cliente
-from .forms import clienteForm, loginForm
-from django.contrib.auth.hashers import make_password, check_password
+from .forms import clienteForm, loginForm, senhaForm
+from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse
 
 # Create your views here.
@@ -37,7 +37,7 @@ def cadastrar(request):
             senha = dados_cliente['senha'],
         )
         if cliente.objects.filter(email=dados_cliente['email']).exists():
-            return HttpResponse("Usuário já existe")
+            context['mensagem'] = "Usuário com esse E-mail já existe!"
         else:
             c.save()
     return render(request, 'cliente/cadastrar_clientes.html', context)
@@ -51,18 +51,19 @@ def login(request):
                 usuario = cliente.objects.get(email=dados_login['email'])
                 p = make_password(dados_login['senha'], salt=usuario.custom_salt)
                 if cliente.objects.filter(email=dados_login['email']).exists() and p == usuario.senha:
+                    u = make_password(usuario.email, salt=usuario.custom_salt)
                     site = redirect("cliente:dashboard")
+                    site.set_cookie('user_hash', u, max_age= None)
                     site.set_cookie('usuario', usuario.email, max_age= None)
                     return site
-                    return HttpResponse(f"Sucesso")
                 else:
-                    mensagem = "Senha incorreta"
+                    mensagem = "Senha incorreta!"
                     context = {
                         "mensagem": mensagem
                     }
                     return render(request, 'cliente/login_clientes.html', context)
             except cliente.DoesNotExist:
-                mensagem = "Usuário não existente"
+                mensagem = "Usuário não existente!"
                 context = {
                     "mensagem": mensagem
                 }
@@ -70,9 +71,26 @@ def login(request):
     return render(request, 'cliente/login_clientes.html')
 
 def dashboard(request):
-    emailUsuario = request.COOKIES['usuario']
-    usuario = cliente.objects.get(email=emailUsuario)
-    context = {
-        'usuario':usuario
-    }
-    return render(request, 'cliente/dashboard_clientes.html', context)
+    try:
+        emailUsuario = request.COOKIES['usuario']
+        u = request.COOKIES['user_hash']
+        usuario = cliente.objects.get(email=emailUsuario)
+        if make_password(emailUsuario, salt=usuario.custom_salt) == u:
+            context = {
+                'usuario':usuario
+            }
+            if request.method == "POST":
+                form = senhaForm(request.POST)
+                if form.is_valid():
+                    dados_senha = form.cleaned_data
+                    p = make_password(dados_senha['senhaAtual'], salt=usuario.custom_salt)
+                    if p == usuario.senha:
+                        usuario.senha = dados_senha['senhaNova']
+                        usuario.save()
+                        # Modificar o Cookie de usuário depois de atualizar a senha
+            return render(request, 'cliente/dashboard_clientes.html', context)
+        else:
+            return redirect("cliente:login")
+    except:
+        return redirect("cliente:login")
+    

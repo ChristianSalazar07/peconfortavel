@@ -42,51 +42,91 @@
                 </h4>
             </div>
         </div>
-        <div class="row">
+        <div class="row border-bottom pb-4 border-primary">
             <div class="col-12">
                 <h5> Informações do Cliente: </h5>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-lg-6">
                 <label for='idCpf'>CPF do Cliente</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.cpf }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-lg-6">
                 <label for='idNome'>Nome do Cliente</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idNome' value='{{ usuario.nome }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-lg-6">
                 <label for='idCpf'>Endereço do Cliente</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.endereco }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-lg-6">
                 <label for='idCpf'>Telefone</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.telefone }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-md-4">
                 <label for='idCpf'>Estado</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.get_uf_display }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-md-4">
                 <label for='idCpf'>Cidade</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.cidade }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-md-4">
                 <label for='idCpf'>Gênero</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.get_genero_display }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-md-6">
                 <label for='idCpf'>Forma de Contato</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.get_contato_display }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-md-6">
                 <label for='idCpf'>Email do Cliente</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.email }}' name='descricaoAnterior' readonly required>
             </div>
-            <div class="form-group col-12">
+            <div class="form-group col-6">
+                <a href="{% url 'construcao' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Alterar Dados</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
                 <label for='idCpf'>Senha</label>
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='*******' name='descricaoAnterior' readonly required>
             </div>
+            <div class="form-group col-sm-8 my-auto">
+                <a data-toggle="modal" data-target="#alterarSenha" class="btn btn-primary btn-md active" role="button">Alterar Senha</a>
+            </div>
         </div>
-        <a href="{% url 'construcao' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Editar</a>
     </div>
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="alterarSenha" tabindex="-1" aria-labelledby="alterarSenhaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alterarSenhaLabel">Alterar Senha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form name="idFrmCadastrarCliente" action="{% url 'cliente:dashboard' %}" method="post">
+        {% csrf_token %}
+            <div class="form-group col-12">
+                <label for="idSenhaAtual" class="col-form-label">Senha Atual</label>
+                <input class="form-control bg-dark text-light" type="password" id="idSenhaCliente" name="senhaAtual"
+                    placeholder="Informe a Senha Atual" maxlength="100" required>
+            </div>
+            <div class="form-group col-12">
+                <label for="idSenhaNova" class="col-form-label">Senha Nova</label>
+                <input class="form-control bg-dark text-light" type="password" id="idSenhaCliente" name="senhaNova"
+                    placeholder="Informe a Senha Nova" maxlength="100" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Alterar Senha</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -2,7 +2,7 @@ from django import forms
 from .models import cliente
 
 class clienteForm(forms.Form):
-    cpf = forms.IntegerField()
+    cpf = forms.IntegerField(required=True)
     nome = forms.CharField(max_length=70, required=True, help_text="Informe o nome:")
     endereco = forms.CharField(max_length=100, required=True, help_text="Informe o endereço:")
     telefone = forms.CharField(max_length=11, required=True, help_text="Informe o Telefone:")
@@ -16,3 +16,7 @@ class clienteForm(forms.Form):
 class loginForm(forms.Form):
     email = forms.CharField(max_length=100, required=True, help_text="Informe o E-mail:")
     senha = forms.CharField(max_length=256, required=True, help_text="Informe a senha:")
+
+class senhaForm(forms.Form):
+    senhaAtual = forms.CharField(max_length=100, required=True, help_text="Informe a senha atual:")
+    senhaNova = forms.CharField(max_length=256, required=True, help_text="Informe a senha nova:")

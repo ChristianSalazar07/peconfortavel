@@ -62,9 +62,8 @@
 
             <!-- linhas -->
             {% for p in produtos %}
-            {% if p.desativado == False %}
             <tr>
-                <td class="text-center">{{ p.codigo }}</td>
+                <td class="text-center">{{ p.codigo|stringformat:"06d" }}</td>
                 <td class="text-center">{{ p.nome }}</td>
                 <td class="text-center"> R${{ p.preco_compra|floatformat:"2g" }}</td>
                 <td class="text-center"> R${{ p.preco_venda|floatformat:"2g" }}</td>
@@ -81,7 +80,6 @@
                     </button>
                 </td>
             </tr>
-            {% endif %}
             {% endfor %}
         </table>
 

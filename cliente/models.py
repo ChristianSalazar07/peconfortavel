@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractUser
 from django.utils.crypto import get_random_string
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 class cliente(models.Model):
@@ -25,7 +26,7 @@ class cliente(models.Model):
         ("T","Telefone"),
         ("F","Fax"),
     ]
-    cpf = models.IntegerField(primary_key=True)
+    cpf = models.PositiveBigIntegerField(primary_key=True, validators=[MinValueValidator(10000000000)])
     nome = models.CharField(max_length=70, null=False, help_text="Informe o nome:")
     endereco = models.CharField(max_length=100, null=False, help_text="Informe o endereço:")
     telefone = models.CharField(max_length=11, null=False, help_text="Informe o Telefone:")
@@ -33,7 +34,7 @@ class cliente(models.Model):
     cidade = models.CharField(max_length=50, null=False, help_text="Informe a cidade:")
     genero = models.CharField(max_length=1, null=False, help_text="Informe o gênero:", choices=generos)
     contato = models.CharField(max_length=1, null=False, help_text="Informe a forma de contato:", choices=contatos)
-    email = models.CharField(max_length=100, null=True, help_text="Informe o E-mail:")
+    email = models.CharField(max_length=100, null=True, unique=True, help_text="Informe o E-mail:")
     senha = models.CharField(max_length=256, null=False, help_text="Informe a senha:")
     custom_salt = models.CharField(max_length=32, null=False, help_text="Salt gerado")
 

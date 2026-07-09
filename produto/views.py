@@ -6,7 +6,7 @@ from .forms import produtoForm, atualizarProdutoForm
 
 # Create your views here.
 def listar(request):
-    lista_produtos = produto.objects.all()
+    lista_produtos = produto.objects.filter(desativado=False)
     context = {
         "produtos": lista_produtos,
     }
