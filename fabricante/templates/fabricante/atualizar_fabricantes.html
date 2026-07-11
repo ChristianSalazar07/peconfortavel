@@ -30,20 +30,22 @@
 
 {% block main %}
 <div class="container">
-    <form name="idFrmCadastrarFabricante" action="{% url 'fabricante:atualizar' codigo %}" method="post">
+    <form name="idFrmAtualizarFabricante" action="{% url 'fabricante:atualizar' codigo %}" method="post">
     {% csrf_token %}
-        <div class="row">
+        <div class="row border border_primary p-2 form-atual">
             <div class="form-group col-10">
-                    <label for='idDescricao'>Nome Atual do Fabricante</label>
-                    <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ fabricanteAlterado.nome }}' name='descricaoAnterior' readonly required>
+                    <label for='idNomeAnterior'>Nome Atual do Fabricante</label>
+                    <input class="form-control bg-dark text-white-50" type='text' id='idNomeAnterior' value='{{ fabricanteAlterado.nome }}' name='descricaoAnterior' readonly required>
                 </div>
                 <div class="form-group col-2">
-                    <label for='idDescricao'>Código</label>
-                    <input class="form-control bg-dark text-white-50" type='text' id='idDescricao' value='{{ codigo }}' name='codigo' readonly required>
+                    <label for='idCodigo'>Código</label>
+                    <input class="form-control bg-dark text-white-50" type='text' id='idCodigo' value='{{ codigo }}' name='codigo' readonly required>
                 </div>
+            </div>
+        <div class="row">
             <div class="form-group col-12">
                 <label for="idNomeFabricante" class="col-form-label">Novo Nome do Fabricante</label>
-                <input class="form-control bg-dark text-light" type="text" id="idNomeFabricante" name="nome"
+                <input class="form-control bg-dark text-light" type="text" id="idNomeFabricante" name="nome" value='{{ fabricanteAlterado.nome }}'
                     placeholder="Informe o nome do fabricante" maxlength="70" required>
             </div>
 

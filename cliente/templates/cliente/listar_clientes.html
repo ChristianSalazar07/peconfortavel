@@ -65,7 +65,7 @@
             <!-- linhas -->
             {% for c in clientes %}
             <tr>
-                <td class="text-center">{{ c.cpf }}</td>
+                <td class="text-center">{{ c.formatarCPF }} </td>
                 <td class="text-center">{{ c.nome }}</td>
                 <td class="text-center">{{ c.endereco }}</td>
                 <td class="text-center">{{ c.telefone }}</td>

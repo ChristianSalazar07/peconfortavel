@@ -101,3 +101,7 @@ input:valid + span::after {
   content: "✓";
   padding-left: 5px;
 }
+
+.form-atual {
+    background-color:#2c2c2c;
+}

@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractUser
 from django.utils.crypto import get_random_string
 from django.core.validators import MaxValueValidator, MinValueValidator
+import math
 
 # Create your models here.
 class cliente(models.Model):
@@ -40,6 +41,10 @@ class cliente(models.Model):
 
     def __str__(self):
         return f"CPF: {self.cpf} - Nome: {self.nome} - Telefone: {self.telefone}"
+    
+    def formatarCPF(self):
+        cpfFormatado = str(self.cpf)
+        return f"{cpfFormatado[:3]}.{cpfFormatado[3:6]}.{cpfFormatado[6:9]}-{cpfFormatado[9:11]}"
     
     def save(self):
         if not self.senha.startswith(('pbkdf2_', 'argon2', 'bcrypt')):

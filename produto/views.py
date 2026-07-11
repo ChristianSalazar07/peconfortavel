@@ -45,7 +45,7 @@ def atualizar(request, codigoProduto):
     form = atualizarProdutoForm(request.POST)
     if form.is_valid():
         dados_produto = form.cleaned_data
-        p = produto.objects.get(pk=dados_produto['codigo'])
+        p = produto.objects.get(pk=codigoProduto)
         p.nome = dados_produto['nome']
         p.preco_compra = dados_produto['preco_compra']
         p.preco_venda = dados_produto['preco_venda']

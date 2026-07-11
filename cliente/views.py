@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import cliente
-from .forms import clienteForm, loginForm, senhaForm
+from .forms import clienteForm, loginForm, senhaForm, atualizarDadosForm
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse
 
@@ -8,7 +8,7 @@ from django.http import HttpResponse
 def listar(request):
     lista_clientes = cliente.objects.all()
     context = {
-        "clientes": lista_clientes
+        "clientes": lista_clientes,
     }
     return render(request, 'cliente/listar_clientes.html', context)
 
@@ -77,7 +77,7 @@ def dashboard(request):
         usuario = cliente.objects.get(email=emailUsuario)
         if make_password(emailUsuario, salt=usuario.custom_salt) == u:
             context = {
-                'usuario':usuario
+                'usuario':usuario,
             }
             if request.method == "POST":
                 form = senhaForm(request.POST)
@@ -91,6 +91,32 @@ def dashboard(request):
             return render(request, 'cliente/dashboard_clientes.html', context)
         else:
             return redirect("cliente:login")
-    except:
+    except request.COOKIES['usuario'] == None:
         return redirect("cliente:login")
     
+def atualizar(request):
+    lista_estados = cliente.estados
+    lista_generos = cliente.generos
+    lista_contatos = cliente.contatos
+    context = {
+        "ufs": lista_estados,
+        "generos": lista_generos,
+        "contatos": lista_contatos
+    }
+    emailUsuario = request.COOKIES['usuario']
+    u = request.COOKIES['user_hash']
+    usuario = cliente.objects.get(email=emailUsuario)
+    if make_password(emailUsuario, salt=usuario.custom_salt) == u:
+        context['usuario'] = usuario
+    form = atualizarDadosForm(request.POST)
+    if form.is_valid():
+        dados_atualizados = form.cleaned_data
+        if dados_atualizados['email'] == cliente.objects.get(email=dados_atualizados['email']).email:
+            context['mensagem'] = "Um usuário com esse email já existe!"
+            return render(request, 'cliente/atualizar_clientes.html', context)
+        elif dados_atualizados['cpf'] == cliente.objects.get(pk=dados_atualizados['cpf']).cpf:
+            context['mensagem'] = "Um usuário com esse CPF já existe!"
+            return render(request, 'cliente/atualizar_clientes.html', context)
+        else:
+            return render(request, 'cliente/atualizar_clientes.html', context)
+    return render(request, 'cliente/atualizar_clientes.html', context)

@@ -1,0 +1,161 @@
+{% extends "base_template.html"%}
+{% load static %}
+
+{% block title%}
+    <title> Pé Confortável Ltda. Atualizar dados do Clientes </title>
+{% endblock %}
+
+{% block page %}
+- Clientes
+{% endblock %}
+
+{% block menu %}
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+        <div class="navbar-nav">
+            <a href="{% url 'index' %}" class="nav-link">Início</a>
+            <a href="{% url 'cliente:cadastrar' %}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'cliente:login' %}" class="nav-link">Login</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_title %}
+    <div class="container text-center border-bottom border-primary">
+        <div class="row mt-5">
+            <div class="col">
+                <h1>Atualizar dados do Cliente</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h1> Em construção! </h1>
+</div>
+{% if mensagem %}
+    <div class="container bg-danger text-white">
+        <p>{{mensagem}}</p>
+    </div>
+{% endif %}
+
+<div class="container">
+    <form name="idFrmCadastrarFabricante" action="{% url 'cliente:atualizar' %}" method="post">
+    {% csrf_token %}
+        <div class="row border border_primary p-2 form-atual">
+            <div class="form-group col-6">
+                <label for='idCPFAnterior'>CPF Atual do Cliente</label>
+                <input class="form-control bg-dark text-light" type='text' value='{{ usuario.cpf }}'
+                id='idCPFAnterior' name='cpfAnterior' placeholder="Informe o CPF do cliente" readonly>
+            </div>
+            <div class="form-group col-6">
+                <label for="idNomeClienteAnterior">Nome Atual do Cliente</label>
+                <input class="form-control bg-dark text-light" type="text" id="idNomeClienteAnterior" value='{{ usuario.nome }}' name="nomeAnterior"
+                    placeholder="Informe o nome do cliente" maxlength="70" readonly>
+            </div>
+            <div class="form-group col-6">
+                <label for="idEnderecoClienteAnterior" >Endereço Atual do Cliente</label>
+                <input class="form-control bg-dark text-light" type="text" id="idEnderecoClienteAnterior" value='{{ usuario.endereco }}' name="enderecoAnterior"
+                    placeholder="Informe o endereço do cliente" maxlength="100" readonly>
+            </div>
+            <div class="form-group col-6">
+                <label for='idTelefoneAnterior'>Telefone Atual</label>
+                <input class="form-control bg-dark text-light" type='text' id='idTelefoneAnterior' name='telefoneAnterior' value='{{ usuario.telefone }}' maxlength="11" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="idEstadoAnterior">Estado Atual</label>
+                <select class="form-control bg-dark text-light" id="idEstadoAnterior" name="ufAnterior">
+                    <option disabled selected value="0">Selecione...</option>
+                    {% for u in ufs %}
+                    <option value={{ u.0 }}>{{ u.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for='idCidadeAnterior'>Cidade Atual</label>
+                <input class="form-control bg-dark text-light" type='text' id='idCidadeAnterior' name='cidadeAnterior' value='{{ usuario.cidade }}'
+                placeholder="Informe o nome da cidade" maxlength="25" readonly>
+            </div>  
+            <div class="form-group col-md-4">
+                <label for="idGeneroAnterior">Gênero Atual</label>
+                <input class="form-control bg-dark text-light" type='text' id='idGeneroAnterior' name='generoAnterior' value='{{ usuario.get_genero_display }}'
+                placeholder="Informe o nome da cidade" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idContatoAnterior">Forma de Contato Atual</label>
+                <input class="form-control bg-dark text-light" type='text' id='idContatoAnterior' name='contatoAnterior' value='{{ usuario.get_contato_display }}'
+                placeholder="Informe o nome da cidade" readonly>
+            </div>
+            <div class="form-group col-6">
+                <label for="idEmailClienteAnterior" class="col-form-label">Email Atual do Cliente</label>
+                <input class="form-control bg-dark text-light" type="email" id="idEmailClienteAnterior"  value='{{ usuario.email }}' name="emailAnterior"
+                    placeholder="Informe o E-mail do cliente" maxlength="100" readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for='idCPF'>CPF do Cliente</label>
+                <input class="form-control bg-dark text-light" type='number' min="10000000000" value = '{{ usuario.cpf }}'
+                max="99999999999" id='idCPF' name='cpf' placeholder="Informe o CPF do cliente" required>
+                <span class="validity"></span>
+            </div>
+            <div class="form-group col-6">
+                <label for="idNomeCliente">Nome do Cliente</label>
+                <input class="form-control bg-dark text-light" type="text" id="idNomeCliente" name="nome"
+                    placeholder="Informe o nome do cliente" maxlength="70" required>
+            </div>
+            <div class="form-group col-6">
+                <label for="idEnderecoCliente" >Endereço do Cliente</label>
+                <input class="form-control bg-dark text-light" type="text" id="idEnderecoCliente" name="endereco"
+                    placeholder="Informe o endereço do cliente" maxlength="100" required>
+            </div>
+            <div class="form-group col-6">
+                <label for='idTelefone'>Telefone</label>
+                <input class="form-control bg-dark text-light" type='text' id='idTelefone' name='telefone' maxlength="11" required>
+            </div>
+            <div class="col-md-4">
+                <label for="idEstado">Estado</label>
+                <select class="form-control bg-dark text-light" id="idEstado" name="uf">
+                    <option disabled selected value="0">Selecione...</option>
+                    {% for u in ufs %}
+                    <option value={{ u.0 }}>{{ u.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for='idCidade'>Cidade</label>
+                <input class="form-control bg-dark text-light" type='text' id='idCidade' name='cidade'
+                placeholder="Informe o nome da cidade" maxlength="25" required>
+            </div>  
+            <div class="form-group col-md-4">
+                <label for="idGenero">Gênero</label>
+                <select class="form-control bg-dark text-light" id="idGenero" name="genero">
+                    <option disabled selected value="0">Selecione...</option>
+                    {% for g in generos %}
+                    <option value={{ g.0 }}>{{ g.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idContato">Forma de Contato</label>
+                <select class="form-control bg-dark text-light" id="idContato" name="contato">
+                    <option disabled selected value="0">Selecione...</option>
+                    {% for c in contatos %}
+                    <option value={{ c.0 }}>{{ c.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-6">
+                <label for="idEmailCliente" class="col-form-label">Email do Cliente</label>
+                <input class="form-control bg-dark text-light" type="email" id="idEmailCliente" name="email"
+                    placeholder="Informe o E-mail do cliente" maxlength="100" required>
+            </div>
+
+            <div class="form-group my-4 text-center">
+                <input type="reset" value="Limpar" class="btn btn-primary btn-md">
+                <input type="submit" value="Atualizar" class="btn btn-primary btn-md">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

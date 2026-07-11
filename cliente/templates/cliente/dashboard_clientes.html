@@ -48,7 +48,7 @@
             </div>
             <div class="form-group col-lg-6">
                 <label for='idCpf'>CPF do Cliente</label>
-                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.cpf }}' name='descricaoAnterior' readonly required>
+                <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.formatarCPF }}' name='descricaoAnterior' readonly required>
             </div>
             <div class="form-group col-lg-6">
                 <label for='idNome'>Nome do Cliente</label>
@@ -83,7 +83,7 @@
                 <input class="form-control bg-dark text-white-50" type='text' id='idCpf' value='{{ usuario.email }}' name='descricaoAnterior' readonly required>
             </div>
             <div class="form-group col-6">
-                <a href="{% url 'construcao' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Alterar Dados</a>
+                <a href="{% url 'cliente:atualizar' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Alterar Dados</a>
             </div>
         </div>
         <div class="row">
